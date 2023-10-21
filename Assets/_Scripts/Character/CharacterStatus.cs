@@ -24,10 +24,16 @@ public abstract class CharacterStatus : MyMonoBehaviour
 
     public readonly ResourceBlock Health = new();
     public readonly ResourceBlock Mana = new();
-    public readonly CharacterStat Stats = new();
-    private readonly HashSet<IEffect> _effects = new();
+    public readonly CharacterStats Stats = new();
+    protected readonly HashSet<IEffect> _effects = new();
 
-    public static bool IsDead { get; private set; } = true;
+    public bool IsDead => Health.Current <= Mathf.Epsilon;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        Health.OnValueChange += CheckForDeath;
+    }
 
     protected override void Reset()
     {
@@ -48,11 +54,6 @@ public abstract class CharacterStatus : MyMonoBehaviour
         damageBlock.Source.OnDealDamage?.Invoke(damageBlock);
         damageBlock.Target.OnTakeDamage?.Invoke(damageBlock);
         // DamageFeedback.Display(damageBlock);
-    }
-
-    public void InstanciateFromStatsData(BaseStatData baseStatData)
-    {
-        Stats.SetStatBase(baseStatData);
     }
 
     public void ReceiveEffect(IEffect effect, CharacterStatus contributer)

@@ -7,15 +7,15 @@ public class FollowHealthBar : PoolObject
     [SerializeField] private Vector2 offset;
 
     private Vector2 _finalOffset;
-    private AttackerController _attachedAttacker;
+    private CharacterStatus _attachedCharacter;
 
-    public void AttachToAttacker(AttackerController attacker)
+    public void AttachToAttacker(CharacterStatus characterStatus)
     {
         DeAttached();
-        _attachedAttacker = attacker;
-        _finalOffset = offset + new Vector2(0, attacker.AttackerStatus.HitBox.bounds.extents.y);
-        attacker.AttackerStatus.Health.OnValueChange += ChangeValueUI;
-        ChangeValueUI(attacker.AttackerStatus.Health.Current, attacker.AttackerStatus.Health.Capacity);
+        _attachedCharacter = characterStatus;
+        _finalOffset = offset + new Vector2(0, characterStatus.HitBox.bounds.extents.y);
+        characterStatus.Health.OnValueChange += ChangeValueUI;
+        ChangeValueUI(characterStatus.Health.Current, characterStatus.Health.Capacity);
     }
 
     private void OnDisable()
@@ -25,9 +25,9 @@ public class FollowHealthBar : PoolObject
 
     private void LateUpdate()
     {
-        if (_attachedAttacker != null)
+        if (_attachedCharacter != null)
         {
-            transform.position = _attachedAttacker.AttackerStatus.Position + _finalOffset;
+            transform.position = _attachedCharacter.Position + _finalOffset;
         }
     }
 
@@ -38,10 +38,10 @@ public class FollowHealthBar : PoolObject
 
     private void DeAttached()
     {
-        if (_attachedAttacker != null)
+        if (_attachedCharacter != null)
         {
-            _attachedAttacker.AttackerStatus.Health.OnValueChange -= ChangeValueUI;
+            _attachedCharacter.Health.OnValueChange -= ChangeValueUI;
         }
-        _attachedAttacker = null;
+        _attachedCharacter = null;
     }
 }

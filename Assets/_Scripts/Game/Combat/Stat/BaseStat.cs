@@ -2,6 +2,29 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Stat
+{
+    MaxHealth,
+    MaxMana,
+
+    AttackPower,
+    HitRate,
+    AttackRange,
+    CriticalChance,
+    CritticalHitDamage,
+
+    MoveSpeed,
+}
+
+[Serializable]
+public class GrowStat
+{
+    public float baseValue;
+    public float growAmount;
+    public int maxLevel;
+
+}
+
 public class BaseStat
 {
     [SerializeField] private float _baseValue;
@@ -13,6 +36,7 @@ public class BaseStat
         {
             if (value <= 0) value = 0;
             _baseValue = value;
+            CalculateFinalValue();
         }
     }
 

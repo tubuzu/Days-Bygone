@@ -6,12 +6,12 @@ public class MonsterWorldSpaceUIManager : GlobalReference<MonsterWorldSpaceUIMan
     // [SerializeField] private Prefab followMonsterInfo;
     [SerializeField] private Transform worldSpaceCanvas;
 
-    public FollowHealthBar ReceiveHealthBar(AttackerController attacker)
+    public FollowHealthBar ReceiveHealthBar(CharacterStatus characterStatus)
     {
         if(PoolManager.Get<FollowHealthBar>(healthBarPrefab, out var healthBar))
         {
             healthBar.transform.SetParent(worldSpaceCanvas);
-            healthBar.AttachToAttacker(attacker);
+            healthBar.AttachToAttacker(characterStatus);
         }
         return healthBar;
     }

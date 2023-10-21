@@ -24,7 +24,7 @@ public class PlayerInput : PlayerAbstract
 
         if (Input.GetMouseButton(0))
         {
-            
+            playerController.PlayerPerformAbility.PerformNormalAttack();
         }
 
     }

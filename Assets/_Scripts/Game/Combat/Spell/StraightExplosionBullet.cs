@@ -14,7 +14,7 @@ public class StraightExplosionBullet : StraightBullet
 
     protected virtual void Explosion(Vector2 position)
     {
-        if (PoolManager.Get<IPoolObject>(explosionPrefab, out var instance))
+        if (explosionPrefab != null && PoolManager.Get<IPoolObject>(explosionPrefab, out var instance))
         {
             instance.gameObject.transform.position = position;
         }

@@ -11,7 +11,10 @@ public class DamageEffect : BaseEffectAndFactory
     {
         float rawDamage = damageBased.GetRawValue(source);
         var damageBlock = GenericPool<DamageBlock>.Get();
-        damageBlock.Init(source, rawDamage);
+        if (damageBased.UseCustomCriticalRate)
+            damageBlock.Init(source, rawDamage, damageBased.CustomCriticalRate);
+        else
+            damageBlock.Init(source, rawDamage);
         target.TakeDamage(damageBlock);
         GenericPool<DamageBlock>.Release(damageBlock);
     }

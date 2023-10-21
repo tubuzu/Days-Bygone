@@ -5,20 +5,23 @@ public class EffectInfo
 {
     public enum EffectType
     {
-        PhysicsDamage,
-        MagicDamage,
-        Buff,
-        Debuff,
-        Heal,
-        DamageOverTime
+        Damage,
+        Freeze,
+        Slow,
+        Knockback,
+        EnemyHealthPercentDamage,
+        DamageOvertime,
     }
 
     private static string TypeToString(EffectType type)
         => type switch
         {
-            EffectType.PhysicsDamage => "Physics damage",
-            EffectType.MagicDamage => "Magic damage",
-            EffectType.DamageOverTime => "Damage over time",
+            EffectType.Damage => "Damage",
+            EffectType.Freeze => "Freeze",
+            EffectType.Slow => "Slow",
+            EffectType.Knockback => "Knockback",
+            EffectType.EnemyHealthPercentDamage => "Enemy Health Percent Damage",
+            EffectType.DamageOvertime => "Damage Overtime",
             _ => type.ToString()
         };
 
